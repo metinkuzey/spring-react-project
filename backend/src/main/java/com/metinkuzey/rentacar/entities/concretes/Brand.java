@@ -1,32 +1,24 @@
 package com.metinkuzey.rentacar.entities.concretes;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Table(name="brands")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Brand {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
 
-    private long id;
+    @Column(name = "name")
     private String name;
-    public Brand() {
-    }
-
-    public Brand(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
 }
