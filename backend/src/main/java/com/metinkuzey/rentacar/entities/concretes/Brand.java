@@ -4,7 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+
 
 @Table(name="brands")
 @Data
@@ -17,7 +23,7 @@ public class Brand {
     @Column(name="brand_id")
     private int brandId;
 
-    @Column(name = "brand_name")
+    @Column(name = "brand_name",unique = true)
     private String brandName;
 
 }

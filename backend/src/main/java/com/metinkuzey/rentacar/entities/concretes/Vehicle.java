@@ -17,7 +17,7 @@ public class Vehicle {
     @Column(name="vehicle_id")
     private int vehicleId;
 
-    @Column(name="plate_nr")
+    @Column(name="plate_nr",unique = true)
     private String plateNr;
 
     @Column(name="model_id")

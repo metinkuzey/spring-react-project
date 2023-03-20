@@ -19,7 +19,7 @@ public class Customer {
     @Column(name="customer_id")
     private int customerId;
 
-    @Column(name="user_name")
+    @Column(name="user_name",unique = true)
     private String userName;
 
     @Column(name="first_name")
@@ -28,10 +28,10 @@ public class Customer {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="email")
+    @Column(name="email",unique = true)
     private String email;
 
-    @Column(name="phone")
+    @Column(name="phone",unique = true)
     private String phone;
 
     @Column(name="password")

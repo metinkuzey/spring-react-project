@@ -20,7 +20,7 @@ public class Order {
 
     @Column(name = "customer_id")
     private int customerId;
-    @Column(name="invoice_id")
+    @Column(name="invoice_id",unique = true)
     private int invoiceId;
     @Column(name="invoice_amount")
     private BigDecimal invoiceAmount;
