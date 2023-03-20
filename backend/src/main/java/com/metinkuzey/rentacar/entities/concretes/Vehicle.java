@@ -6,18 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table(name="brands")
+@Table(name="vehicles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Brand {
+public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="brand_id")
-    private int brandId;
+    @Column(name="vehicle_id")
+    private int vehicleId;
 
-    @Column(name = "brand_name")
-    private String brandName;
+    @Column(name="plate_nr")
+    private String plateNr;
+
+    @Column(name="model_id")
+    private int modelId;
 
 }

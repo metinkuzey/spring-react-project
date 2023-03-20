@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GelAllBrandsResponse {
+public class GetByIdVehicleResponse {
+    private int vehicleId;
+    private String plateNr;
+    private int modelId;
 
-    private int id;
-    private String name;
 }

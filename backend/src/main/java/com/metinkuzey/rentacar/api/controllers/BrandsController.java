@@ -3,7 +3,7 @@ package com.metinkuzey.rentacar.api.controllers;
 import com.metinkuzey.rentacar.business.abstracts.BrandService;
 import com.metinkuzey.rentacar.business.requests.CreateBrandRequest;
 import com.metinkuzey.rentacar.business.requests.UpdateBrandRequest;
-import com.metinkuzey.rentacar.business.responses.GelAllBrandsResponse;
+import com.metinkuzey.rentacar.business.responses.GetAllBrandsResponse;
 import com.metinkuzey.rentacar.business.responses.GetByIdBrandResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class BrandsController {
     private BrandService brandService;
 
     @GetMapping()
-    public List<GelAllBrandsResponse> getAll() {
+    public List<GetAllBrandsResponse> getAll() {
         return brandService.getAll();
     }
 
