@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    @apply cursor-pointer;
+}
+
+@layer components {
+    .btn:hover {
+        @apply text-orange-600
+    }
+}
