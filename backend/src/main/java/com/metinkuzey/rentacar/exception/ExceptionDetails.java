@@ -1,4 +1,4 @@
-package com.metinkuzey.rentacar.business.requests;
+package com.metinkuzey.rentacar.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBrandRequest {
+public class ExceptionDetails {
 
-    private int brandId;
-    private String name;
+    String message;
+
 }

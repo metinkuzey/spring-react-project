@@ -8,6 +8,7 @@ import com.metinkuzey.rentacar.business.responses.GetByIdVehicleResponse;
 import com.metinkuzey.rentacar.core.utilities.mappers.ModelMapperService;
 import com.metinkuzey.rentacar.entities.concretes.Vehicle;
 import com.metinkuzey.rentacar.repository.abstracts.VehicleRepository;
+import com.metinkuzey.rentacar.rules.BusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class VehicleManager implements VehicleService {
     private VehicleRepository vehicleRepository;
     private ModelMapperService modelMapperService;
+    private BusinessRules businessRules;
 
     @Override
     public List<GetAllVehiclesResponse> getAll() {
@@ -37,6 +39,7 @@ public class VehicleManager implements VehicleService {
 
 
     public void add(CreateVehicleRequest createVehicleRequest) {
+        this.businessRules.checkIfVehiclePlateNrExist(createVehicleRequest.getPlateNr());
         Vehicle vehicle= this.modelMapperService
                 .forRequest()
                 .map(createVehicleRequest,Vehicle.class);
@@ -45,6 +48,7 @@ public class VehicleManager implements VehicleService {
 
 
     public void update(UpdateVehicleRequest updateVehicleRequest) {
+        this.businessRules.checkIfVehiclePlateNrExist(updateVehicleRequest.getPlateNr());
         Vehicle vehicle =  this.modelMapperService.forRequest().map(updateVehicleRequest,Vehicle.class);
         this.vehicleRepository.save(vehicle);
     }

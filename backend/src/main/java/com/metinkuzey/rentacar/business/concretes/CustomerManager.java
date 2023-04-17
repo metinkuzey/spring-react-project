@@ -8,6 +8,7 @@ import com.metinkuzey.rentacar.business.responses.GetByIdCustomerResponse;
 import com.metinkuzey.rentacar.core.utilities.mappers.ModelMapperService;
 import com.metinkuzey.rentacar.entities.concretes.Customer;
 import com.metinkuzey.rentacar.repository.abstracts.CustomerRepository;
+import com.metinkuzey.rentacar.rules.BusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

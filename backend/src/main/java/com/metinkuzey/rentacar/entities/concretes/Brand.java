@@ -24,6 +24,6 @@ public class Brand {
     private int brandId;
 
     @Column(name = "brand_name",unique = true)
-    private String brandName;
+    private String name;
 
 }

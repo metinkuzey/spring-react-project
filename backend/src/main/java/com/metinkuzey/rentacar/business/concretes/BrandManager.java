@@ -8,6 +8,7 @@ import com.metinkuzey.rentacar.business.responses.GetByIdBrandResponse;
 import com.metinkuzey.rentacar.core.utilities.mappers.ModelMapperService;
 import com.metinkuzey.rentacar.entities.concretes.Brand;
 import com.metinkuzey.rentacar.repository.abstracts.BrandRepository;
+import com.metinkuzey.rentacar.rules.BusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class BrandManager implements BrandService {
 
     private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BusinessRules businessRules;
 
     @Override
     public List<GetAllBrandsResponse> getAll() {
@@ -38,6 +40,9 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(CreateBrandRequest createBrandRequest) {
+        //Business rule check
+        this.businessRules.checkIfBrandNameExists(createBrandRequest.getName());
+
         Brand brand = this.modelMapperService
                             .forRequest()
                             .map(createBrandRequest,Brand.class);
