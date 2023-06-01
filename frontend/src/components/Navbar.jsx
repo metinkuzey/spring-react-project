@@ -1,15 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div className="md:h-24 w-full bg-slate-50 flex justify-between items-center shadow-md">
       <div className="ml-5 text-4xl text-gray-900 font-semibold">
-        <p>
-          Rent<span className="text-orange-600 font-extralight ">*2M</span>
-        </p>
+        <Link to="/">
+          <p>
+            Rent<span className="text-orange-600 font-extralight ">*2M</span>
+          </p>
+        </Link>
       </div>
       <div className="md:flex md:flex-row md:gap-20 md:pr-10 text-right">
         <div className="md:flex md:gap-5">
+          <Link to="/create-brands">
+            <button className="btn">MANAGE BRAND</button>
+          </Link>
+          <button className="btn">MANAGE MODEL</button>
+          <button className="btn">MANAGE VEHICLE</button>
           <button className="btn">CAR RENTAL</button>
           <button className="btn">MONTHLY CAR RENTAL</button>
         </div>
