@@ -1,33 +1,28 @@
-import React, { Component } from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-class App  extends Component {
-  state = {
-    customers: []
-  };
+import Brand from "./brand/pages/Brand";
 
-
-  async componentDidMount() {
-    const response = await fetch('/customers');
-    const body = await response.json();
-    this.setState({customers: body});
-  }
-
-  render() {
-    const {customers} = this.state;
-    return (
+const App = () => {
+  return (
+    <BrowserRouter>
       <div className="bg-stone-100 min-h-screen">
-              <Navbar />
-              <Home />
-              <h2>Customers</h2>
-              {customers.map(customer =>
-                  <div key={customer.customerId}>
-                    {customer.userName} ({customer.email})
-                  </div>
-              )}
-            </div>
-    );
-  }
-}
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/create-brands" Component={Brand} />
+            <Route path="/" Component={Home} exact />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
+};
+
 export default App;
 
+/*
+We can refer to below medium link for react-router-dom: 
+https://medium.com/front-end-weekly/react-router-dom-the-essentials-f63dca64dc3e
+*/

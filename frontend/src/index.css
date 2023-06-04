@@ -6,8 +6,36 @@
     @apply cursor-pointer;
 }
 
+.btn-brand-card {
+    @apply border-2 border-orange-600 rounded-full text-white px-3 py-1;
+}
+
+.brand-panel {
+    @apply bg-stone-200 py-2 px-10;
+}
+
+.brand-form-input {
+    @apply w-full h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
+}
+
+.btn-brand-form-submit {
+    @apply border-2 border-black rounded-full text-black px-3 py-1 mt-5;
+}
+
+.brand-card {
+    @apply flex justify-between items-center bg-gray-600 rounded-md border-gray-600 text-white p-2 shadow-md mt-1;
+}
+
 @layer components {
     .btn:hover {
         @apply text-orange-600
+    }
+
+    .btn-brand-card:hover {
+        @apply bg-orange-600
+    }
+
+    .btn-brand-form-submit:hover {
+        @apply bg-orange-600 text-white border-orange-600
     }
 }
