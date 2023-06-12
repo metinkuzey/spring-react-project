@@ -1,10 +1,11 @@
 package com.metinkuzey.rentacar.entities.concretes;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Date;
 
 @Table(name="customers")
@@ -19,6 +20,7 @@ public class Customer {
     @Column(name="customer_id")
     private int customerId;
 
+    @NotNull
     @Column(name="user_name",unique = true)
     private String userName;
 

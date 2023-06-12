@@ -1,16 +1,16 @@
 package com.metinkuzey.rentacar.business.requests;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class
-CreateModelRequest {
-    private int modelId;
-    private int brandId;
-    private String modelName;
-    private int modelYear;
+public class AuthenticationRequest {
+
+    private String email;
+    private String password;
 }
