@@ -13,4 +13,6 @@ public class GetByIdModelResponse {
     private String modelName;
     private int modelYear;
 
+    private String modelPicture;
+
 }

@@ -12,4 +12,6 @@ public class GetAllModelsResponse {
     private int brandId;
     private String modelName;
     private int modelYear;
+
+    private String modelPicture;
 }

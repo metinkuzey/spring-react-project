@@ -10,6 +10,10 @@ const getRequest = async (endpoint) => {
   return await axios.get(endpoint, config);
 };
 
+const getRequestById = async (endpoint, id) => {
+  return await axios.get(endpoint + `/${id}`, config);
+};
+
 const postRequest = async (endpoint, postObject) => {
   return await axios.post(endpoint, postObject, config);
 };
@@ -22,4 +26,10 @@ const putRequest = async (endpoint, putObject) => {
   return await axios.put(endpoint, putObject, config);
 };
 
-export { getRequest, postRequest, deleteRequestById, putRequest };
+export {
+  getRequest,
+  getRequestById,
+  postRequest,
+  deleteRequestById,
+  putRequest,
+};

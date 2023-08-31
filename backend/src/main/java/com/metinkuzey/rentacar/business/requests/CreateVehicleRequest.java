@@ -11,4 +11,6 @@ public class CreateVehicleRequest {
     private int vehicleId;
     private String plateNr;
     private int modelId;
+
+    private String vehiclePicture;
 }

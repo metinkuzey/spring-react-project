@@ -10,16 +10,24 @@
     @apply border-2 border-orange-600 rounded-full text-white px-3 py-1;
 }
 
-.brand-panel {
+.panel-style {
     @apply bg-stone-200 py-2 px-10;
 }
 
-.brand-form-input {
+.panel-form-input {
     @apply w-full h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
 }
 
-.btn-brand-form-submit {
-    @apply border-2 border-black rounded-full text-black px-3 py-1 mt-5;
+.panel-form-dropdown {
+    @apply w-4/12 h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
+}
+
+.panel-form-dropdown-year {
+    @apply w-3/12 h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
+}
+
+.btn-panel-form-submit {
+    @apply border border-black rounded text-black text-sm px-3 py-1 mt-5;
 }
 
 .brand-card {
@@ -35,7 +43,7 @@
         @apply bg-orange-600
     }
 
-    .btn-brand-form-submit:hover {
+    .btn-panel-form-submit:hover {
         @apply bg-orange-600 text-white border-orange-600
     }
 }
