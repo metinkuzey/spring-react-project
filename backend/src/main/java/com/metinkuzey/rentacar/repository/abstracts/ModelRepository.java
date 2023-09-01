@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ModelRepository extends JpaRepository<Model,Integer> {
     boolean existsByModelName(String modelName);
+
+    boolean existsByModelNameAndModelYearAndBrandId(String modelName, int modelYear, int brandId);
 }
