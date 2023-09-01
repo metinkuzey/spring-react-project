@@ -2,9 +2,9 @@ import React from "react";
 
 const BrandPanel = ({ panelName, performPanelHandler }) => {
   return (
-    <div className="brand-panel">
+    <div className="panel-style">
       <div className="flex justify-between items-center">
-        <p className="underline underline-offset-1 text-lg font-semibold text-black">
+        <p className="underline underline-offset-1 decoration-double text-sm font-semibold text-black">
           {panelName}
         </p>
         <button

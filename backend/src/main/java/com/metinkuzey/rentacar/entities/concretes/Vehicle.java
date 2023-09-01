@@ -23,4 +23,7 @@ public class Vehicle {
     @Column(name="model_id")
     private int modelId;
 
+    @Column(name="vehicle_picture")
+    private String vehiclePicture;
+
 }

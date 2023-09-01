@@ -13,11 +13,15 @@ const Navbar = () => {
       </div>
       <div className="md:flex md:flex-row md:gap-20 md:pr-10 text-right">
         <div className="md:flex md:gap-5">
-          <Link to="/create-brands">
+          <Link to="/brands">
             <button className="btn">MANAGE BRAND</button>
           </Link>
-          <button className="btn">MANAGE MODEL</button>
-          <button className="btn">MANAGE VEHICLE</button>
+          <Link to="/models">
+            <button className="btn">MANAGE MODEL</button>
+          </Link>
+          <Link to="/vehicles">
+            <button className="btn">MANAGE VEHICLE</button>
+          </Link>
           <button className="btn">CAR RENTAL</button>
           <button className="btn">MONTHLY CAR RENTAL</button>
         </div>

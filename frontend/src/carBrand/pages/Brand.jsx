@@ -104,7 +104,7 @@ const Brand = () => {
       >
         <p>Please enter new brand name to update.</p>
         <input
-          className="brand-form-input text-black"
+          className="panel-form-input text-black"
           value={updateState.name}
           onChange={(e) =>
             setUpdateState((prev) => ({ ...prev, name: e.target.value }))
