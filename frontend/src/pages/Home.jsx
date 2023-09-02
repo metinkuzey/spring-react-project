@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../components/Card";
-import cars from "../data/mock/cars";
+
+import VehicleComponent from "../components/VehicleComponent";
 
 const Home = () => {
   return (
@@ -11,9 +11,7 @@ const Home = () => {
         </p>
       </div>
       <div className="flex flex-wrap gap-20 m-10">
-        {cars.map((car) => {
-          return <Card key={car.carId} car={car} />;
-        })}
+        <VehicleComponent />
       </div>
     </div>
   );
