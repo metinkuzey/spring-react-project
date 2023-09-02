@@ -29,6 +29,12 @@ public class BusinessRules {
         }
     }
 
+    public void checkIfModelExistsByModelNameAndModelYearAndBrandId(String modelName, int modelYear, int brandId) {
+        if (this.modelRepository.existsByModelNameAndModelYearAndBrandId(modelName, modelYear, brandId)) {
+            throw new BusinessException("Model is already exist!!!");
+        }
+    }
+
     public void checkIfUserNameExists(String userName){
         if(this.customerRepository.existsByUserName(userName)){
             throw new BusinessException("User name is already exist! Please enter different username.");
