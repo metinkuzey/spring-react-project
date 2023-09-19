@@ -5,11 +5,12 @@ import com.metinkuzey.rentacar.business.requests.CreateBrandRequest;
 import com.metinkuzey.rentacar.business.requests.UpdateBrandRequest;
 import com.metinkuzey.rentacar.business.responses.GetAllBrandsResponse;
 import com.metinkuzey.rentacar.business.responses.GetByIdBrandResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,7 @@ public class BrandsController {
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void add(@RequestBody() @Valid CreateBrandRequest createBrandRequest){
         this.brandService.add(createBrandRequest);
     }
@@ -36,11 +38,13 @@ public class BrandsController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public  void update(@RequestBody UpdateBrandRequest updateBrandRequest){
         this.brandService.update(updateBrandRequest);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(@PathVariable int id){
         this.brandService.delete(id);
     }

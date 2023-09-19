@@ -34,11 +34,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (request.getServletPath().contains("/api/v1/auth")) {
             filterChain.doFilter(request, response);
             return;
-        }
+        }/*
         if (request.getServletPath().contains("/v3/api-docs") || request.getServletPath().contains("/swagger-ui")||request.getServletPath().contains("/api/")) {
             filterChain.doFilter(request, response);
             return;
-        }
+        }*/
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
@@ -62,7 +62,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
-                authToken.setAuthenticated(true);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

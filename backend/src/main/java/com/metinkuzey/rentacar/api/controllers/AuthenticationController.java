@@ -22,7 +22,6 @@ import java.io.IOException;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Tag(name = "Auth", description = "Auth management APIs")
-//@SecurityRequirement(name = "mkuzey")
 public class AuthenticationController {
 
     private final AuthenticationService service;
