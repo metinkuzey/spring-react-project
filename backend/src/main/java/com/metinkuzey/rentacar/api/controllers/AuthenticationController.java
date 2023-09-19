@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -36,9 +33,24 @@ public class AuthenticationController {
         return new ResponseEntity(new StandardResponse("200", "Done", service.authenticate(request)), HttpStatus.OK);
     }
 
+    @PostMapping("/authenticate-cookie")
+    public ResponseEntity<AuthenticationResponse> authenticateWithCookie(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+        return new ResponseEntity(new StandardResponse("200", "Done", service.authenticateWithCookie(request, response)), HttpStatus.OK);
+    }
+
     @PostMapping("/refresh-token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         service.refreshToken(request, response);
+    }
+
+    @PostMapping("/refresh-token-cookie")
+    public ResponseEntity<?> refreshTokenWithCookie(@CookieValue(name = "refreshToken", required = false) String refreshToken) {
+        // Check if the refreshToken is null or empty
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Refresh token not provided");
+        }
+
+        return service.refreshTokenWithCookie(refreshToken);
     }
 
 }

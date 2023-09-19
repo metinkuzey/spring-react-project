@@ -8,10 +8,12 @@ import com.metinkuzey.rentacar.entities.concretes.Token;
 import com.metinkuzey.rentacar.entities.concretes.User;
 import com.metinkuzey.rentacar.entities.concretes.enums.TokenType;
 import com.metinkuzey.rentacar.repository.abstracts.TokenRepository;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -72,6 +74,34 @@ public class AuthenticationServiceManager implements AuthenticationService {
                 .build();
     }
 
+    @Override
+    public AuthenticationResponse authenticateWithCookie(AuthenticationRequest request, HttpServletResponse response) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setMaxAge(30); // Set the cookie expiration time (in seconds)
+        cookie.setPath("/"); // Set the cookie path
+        response.addCookie(cookie);
+
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .role(user.getRole())
+                .build();
+    }
+
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -117,6 +147,28 @@ public class AuthenticationServiceManager implements AuthenticationService {
                         .build();
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
+        }
+    }
+
+    public ResponseEntity<?> refreshTokenWithCookie(String refreshToken)  {
+        final String userEmail;
+
+        userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = this.repository.findByEmail(userEmail)
+                    .orElseThrow();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+
+                return ResponseEntity.ok(AuthenticationResponse.builder().accessToken(accessToken).role(user.getRole()).build());
+            } else {
+                revokeAllUserTokens(user);
+                return ResponseEntity.status(401).body("Invalid refresh token");
+            }
+        } else {
+            return ResponseEntity.status(401).body("Invalid user");
         }
     }
 }
