@@ -19,8 +19,11 @@ import {
   updateBrandReducer,
 } from "../reducers/brandReducer";
 import PopupForm from "../../components/PopupForm";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Brand = () => {
+  const axiosPrivate = useAxiosPrivate();
+
   // useReducers to handle api requests
   const [getBrandState, getDispatch] = useReducer(getAllBrandsReducer, {});
   const [createBrand, createDispatch] = useReducer(createBrandReducer, {});
@@ -79,7 +82,9 @@ const Brand = () => {
   // handle create brand form
   const handleSubmit = (event) => {
     event.preventDefault(); // in order to cancel form submit and follow our own create process
-    createDispatch(createBrandAction(createDispatch, { name: brandName }));
+    createDispatch(
+      createBrandAction(createDispatch, { name: brandName }, axiosPrivate)
+    );
     setBrandName("");
   };
 

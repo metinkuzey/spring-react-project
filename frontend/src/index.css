@@ -18,6 +18,14 @@
     @apply w-full h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
 }
 
+.sign-in-form-input {
+    @apply w-full h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
+}
+
+.register-form-dropdown {
+    @apply w-4/6 h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
+}
+
 .panel-form-dropdown {
     @apply w-4/12 h-10 border rounded-lg border-slate-400 bg-gray-50 placeholder-slate-400 pl-2 font-light mt-3;
 }
@@ -28,6 +36,10 @@
 
 .btn-panel-form-submit {
     @apply border border-black rounded text-black text-sm px-3 py-1 mt-5;
+}
+
+.btn-sign-in-form-submit {
+    @apply bg-orange-600 rounded text-white text-sm py-2 mt-5 w-full;
 }
 
 .brand-card {
@@ -45,5 +57,9 @@
 
     .btn-panel-form-submit:hover {
         @apply bg-orange-600 text-white border-orange-600
+    }
+
+    .btn-sign-in-form-submit:hover {
+        @apply bg-orange-500
     }
 }

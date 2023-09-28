@@ -42,13 +42,13 @@ export const getAllBrands = async (dispatch) => {
   }
 };
 
-export const createBrand = async (dispatch, brand) => {
+export const createBrand = async (dispatch, brand, axiosPrivate) => {
   try {
     dispatch({
       type: CREATE_BRAND_REQUEST,
     });
 
-    const { data } = await postRequest(`/api/brands`, brand);
+    const { data } = await axiosPrivate.post(`/api/brands`, brand);
 
     dispatch({
       type: CREATE_BRAND_REQUEST_SUCCESS,
