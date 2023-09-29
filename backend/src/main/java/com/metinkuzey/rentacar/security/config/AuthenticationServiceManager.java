@@ -54,6 +54,31 @@ public class AuthenticationServiceManager implements AuthenticationService {
     }
 
     @Override
+    public AuthenticationResponse registerWithCookie(RegisterRequest request, HttpServletResponse response) {
+        User user = User.builder()
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .address(request.getAddress())
+                .mobileNumber(request.getMobileNumber())
+                .gender(request.getGender())
+                .role(request.getRole())
+                .build();
+        var savedUser = repository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+
+        Cookie cookie = getCookie(refreshToken);
+        response.addCookie(cookie);
+
+        saveUserToken(savedUser, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .build();
+    }
+
+    @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -89,11 +114,7 @@ public class AuthenticationServiceManager implements AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
 
-        Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setMaxAge(30); // Set the cookie expiration time (in seconds)
-        cookie.setPath("/"); // Set the cookie path
+        Cookie cookie = getCookie(refreshToken);
         response.addCookie(cookie);
 
         return AuthenticationResponse.builder()
@@ -150,7 +171,7 @@ public class AuthenticationServiceManager implements AuthenticationService {
         }
     }
 
-    public ResponseEntity<?> refreshTokenWithCookie(String refreshToken)  {
+    public ResponseEntity<?> refreshTokenWithCookie(String refreshToken) {
         final String userEmail;
 
         userEmail = jwtService.extractUsername(refreshToken);
@@ -170,5 +191,15 @@ public class AuthenticationServiceManager implements AuthenticationService {
         } else {
             return ResponseEntity.status(401).body("Invalid user");
         }
+    }
+
+    private Cookie getCookie(String refreshToken) {
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setMaxAge(30); // Set the cookie expiration time (in seconds)
+        cookie.setPath("/"); // Set the cookie path
+
+        return cookie;
     }
 }
