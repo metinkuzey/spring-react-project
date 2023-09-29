@@ -28,6 +28,11 @@ public class AuthenticationController {
         return new ResponseEntity(new StandardResponse("200", "Done", service.register(request)), HttpStatus.OK);
     }
 
+    @PostMapping("/register-cookie")
+    public ResponseEntity registerWithCookie(@RequestBody RegisterRequest request, HttpServletResponse response) {
+        return new ResponseEntity(new StandardResponse("200", "Done", service.registerWithCookie(request,response)), HttpStatus.OK);
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return new ResponseEntity(new StandardResponse("200", "Done", service.authenticate(request)), HttpStatus.OK);

@@ -13,6 +13,8 @@ public interface AuthenticationService {
 
     AuthenticationResponse register(RegisterRequest request);
 
+    AuthenticationResponse registerWithCookie(RegisterRequest request, HttpServletResponse response);
+
     AuthenticationResponse authenticate(AuthenticationRequest request);
 
     AuthenticationResponse authenticateWithCookie(AuthenticationRequest request, HttpServletResponse response);
