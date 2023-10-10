@@ -4,6 +4,7 @@ import com.metinkuzey.rentacar.business.requests.AuthenticationRequest;
 import com.metinkuzey.rentacar.business.requests.RegisterRequest;
 import com.metinkuzey.rentacar.business.responses.AuthenticationResponse;
 import com.metinkuzey.rentacar.security.config.AuthenticationService;
+import com.metinkuzey.rentacar.security.config.LogoutService;
 import com.metinkuzey.rentacar.util.StandardResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -23,6 +25,8 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
+    private final LogoutService logoutService;
+
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequest request) {
         return new ResponseEntity(new StandardResponse("200", "Done", service.register(request)), HttpStatus.OK);
@@ -30,7 +34,7 @@ public class AuthenticationController {
 
     @PostMapping("/register-cookie")
     public ResponseEntity registerWithCookie(@RequestBody RegisterRequest request, HttpServletResponse response) {
-        return new ResponseEntity(new StandardResponse("200", "Done", service.registerWithCookie(request,response)), HttpStatus.OK);
+        return new ResponseEntity(new StandardResponse("200", "Done", service.registerWithCookie(request, response)), HttpStatus.OK);
     }
 
     @PostMapping("/authenticate")
@@ -41,6 +45,11 @@ public class AuthenticationController {
     @PostMapping("/authenticate-cookie")
     public ResponseEntity<AuthenticationResponse> authenticateWithCookie(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         return new ResponseEntity(new StandardResponse("200", "Done", service.authenticateWithCookie(request, response)), HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        logoutService.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @PostMapping("/refresh-token")
